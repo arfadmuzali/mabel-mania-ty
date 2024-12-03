@@ -1,0 +1,146 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  Authenticator Authenticator[]
+  store         Store?
+  cart          Cart?
+}
+
+model Category {
+  slug String @id
+  name String @unique
+
+  products Product[]
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  url       String   @unique
+  createdAt DateTime @default(now())
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  slug        String
+  description String
+  name        String
+  price       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  images       Image[]
+  CartItems    CartItem[]
+  categorySlug String
+  category     Category   @relation(references: [slug], fields: [categorySlug], onDelete: Cascade)
+  storeId      String
+  store        Store      @relation(references: [id], fields: [storeId])
+
+  @@index([name])
+  @@index([price])
+}
+
+model Store {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  product Product[]
+  userId  String    @unique
+  user    User      @relation(references: [id], fields: [userId])
+
+  @@index([name])
+}
+
+model Cart {
+  id         Int        @id @default(autoincrement())
+  totalPrice Int?
+  cartItems  CartItem[]
+  userId     String     @unique
+  user       User       @relation(references: [id], fields: [userId])
+}
+
+model CartItem {
+  id        Int     @id @default(autoincrement())
+  quantity  Int
+  price     Int
+  cartId    Int
+  cart      Cart    @relation(references: [id], fields: [cartId], onDelete: Cascade)
+  productId String  @unique
+  product   Product @relation(references: [id], fields: [productId], onDelete: Cascade)
+}
