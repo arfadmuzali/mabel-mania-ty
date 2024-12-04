@@ -5,6 +5,7 @@ export async function GET() {
     const categories = await prisma.category.findMany({
       select: {
         slug: true,
+        name: true,
         _count: {
           select: {
             products: true,

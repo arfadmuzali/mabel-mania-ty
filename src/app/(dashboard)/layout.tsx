@@ -1,5 +1,5 @@
-import Nav from "@/components/layouts/Nav";
 import { auth } from "@/lib/auth";
+import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
@@ -12,9 +12,27 @@ export default async function DashboardLayout({
   if (!session) {
     redirect("/signin");
   }
+
+  try {
+    const store = await prisma.store.findUnique({
+      where: {
+        userId: session?.user?.id,
+      },
+      select: {
+        id: true,
+      },
+    });
+    if (!store) {
+      throw new Error("asjdwadl");
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    redirect("/onboarding");
+  }
+
   return (
     <div>
-      <Nav isSticky={true} />
+      {/* <Nav isSticky={true} /> */}
       {children}
     </div>
   );

@@ -20,14 +20,16 @@ export default function AvatarMenu({ session }: { session: Session }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar>
-          <AvatarFallback>{session.user?.name?.charAt(0)}</AvatarFallback>
-          <AvatarImage alt="image" src={session.user?.image ?? ""} />
+          <AvatarFallback>
+            {session?.user?.name?.charAt(0) ?? "AV"}
+          </AvatarFallback>
+          <AvatarImage alt="image" src={session?.user?.image ?? ""} />
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-52" side="bottom" align="end">
-        <DropdownMenuLabel>{session.user?.name}</DropdownMenuLabel>
+        <DropdownMenuLabel>{session?.user?.name ?? ""}</DropdownMenuLabel>
         <DropdownMenuLabel className="text-neutral-600 py-0 text-xs">
-          {session.user?.email}
+          {session?.user?.email ?? ""}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
