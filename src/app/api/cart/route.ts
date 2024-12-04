@@ -19,6 +19,11 @@ export async function GET() {
             product: {
               include: {
                 images: true,
+                store: {
+                  select: {
+                    name: true,
+                  },
+                },
               },
             },
           },

@@ -16,14 +16,14 @@ async function getCart() {
   return response.data;
 }
 
-interface Cart {
+export interface Cart {
   id: number;
-  totalPrice: null;
+  totalPrice: number;
   userId: string;
   cartItems: CartItem[];
 }
 
-interface CartItem {
+export interface CartItem {
   id: number;
   quantity: number;
   price: number;
@@ -32,7 +32,7 @@ interface CartItem {
   product: Product;
 }
 
-interface Product {
+export interface Product {
   id: string;
   slug: string;
   description: string;
@@ -43,13 +43,18 @@ interface Product {
   categorySlug: string;
   storeId: string;
   images: Image[];
+  store: Store;
 }
 
-interface Image {
+export interface Image {
   id: string;
   url: string;
   createdAt: Date;
   productId: string;
+}
+
+export interface Store {
+  name: string;
 }
 
 async function deleteCartItem(cartItemId: number) {
@@ -71,6 +76,8 @@ export default function CartPage() {
     queryKey: ["cartTable"],
     queryFn: getCart,
   });
+
+  console.log(cart);
 
   const deleteCart = useMutation({
     mutationFn: deleteCartItem,
@@ -138,6 +145,9 @@ export default function CartPage() {
                     {formatToDollar(cart?.product?.price)}
                   </h3>
 
+                  <h3 className="text-neutral-600">
+                    From: {cart?.product?.store.name}
+                  </h3>
                   <h3 className="text-neutral-600">
                     Quantity: {cart?.quantity}
                   </h3>
