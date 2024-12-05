@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { formatToDollar } from "@/lib/formatToDollar";
-
 interface Order {
   id: string;
   totalPrice: number;
@@ -14,6 +13,7 @@ interface Order {
   cartId: number;
   invoice: Invoice;
   orderItems: OrderItem[];
+  user: User;
 }
 
 interface Invoice {
@@ -64,7 +64,22 @@ interface Store {
   name: string;
 }
 
-export default function OrderCard({ order }: { order: Order }) {
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: null;
+  image: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+export default function OrderCard({
+  order,
+  showOrderer = false,
+}: {
+  order: Order;
+  showOrderer?: boolean;
+}) {
   const getBadgeVariant = (
     status: string
   ):
@@ -88,13 +103,23 @@ export default function OrderCard({ order }: { order: Order }) {
   return (
     <div className="rounded-lg shadow-md p-4 w-full space-y-4 border">
       <header className="flex justify-between items-center p-2 border-b">
-        <Link
-          target="_blank"
-          href={order.invoice.invoiceUrl}
-          className="max-w-[50%] truncate text-blue-400 hover:underline"
-        >
-          {order.invoice.invoiceUrl}
-        </Link>
+        {showOrderer ? (
+          <div className="">
+            <h2 className="text-lg font-semibold text-neutral-700">
+              {order.user.name}
+            </h2>
+            <h5 className="text-sm text-neutral-600">{order.user.email}</h5>
+          </div>
+        ) : (
+          <Link
+            target="_blank"
+            href={order.invoice?.invoiceUrl ?? "#"}
+            className="max-w-[50%] truncate text-blue-400 hover:underline"
+          >
+            {order.invoice?.invoiceUrl}
+          </Link>
+        )}
+
         {/* <Badge variant={"success"}>{order.status}</Badge> */}
         <Badge variant={getBadgeVariant(order.status)}>{order.status}</Badge>
       </header>

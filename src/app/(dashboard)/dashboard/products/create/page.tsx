@@ -85,7 +85,6 @@ export default function DashboardCreateProductPage() {
       price: string;
       description: string;
     }) => {
-      console.log(data);
       const response = await axios.post("/api/dashboard/products", data);
       return response.data;
     },
@@ -125,8 +124,6 @@ export default function DashboardCreateProductPage() {
                 return upload.file;
               })
             );
-
-            console.log(imageUrls);
 
             const payload = {
               ...values,
@@ -206,7 +203,6 @@ export default function DashboardCreateProductPage() {
                 <Select
                   value={selectedCategories}
                   onValueChange={(e) => {
-                    // console.log(e);
                     setSelectedCategories(e);
                   }}
                 >

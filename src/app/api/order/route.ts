@@ -20,6 +20,7 @@ export async function GET() {
       },
       include: {
         invoice: true,
+        user: true,
         orderItems: {
           include: {
             product: {

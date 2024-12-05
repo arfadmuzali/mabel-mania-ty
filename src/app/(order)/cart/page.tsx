@@ -85,7 +85,6 @@ export default function CartPage() {
       return response.data;
     },
     onSuccess: async (data) => {
-      console.log(data);
       window.open(data.invoiceUrl, "_blank");
       await queryClient.invalidateQueries({ queryKey: ["cartCount"] });
     },

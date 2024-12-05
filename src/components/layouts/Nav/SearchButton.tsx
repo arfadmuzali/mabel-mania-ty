@@ -64,7 +64,6 @@ export default function SearchButton() {
     },
     enabled: !!search,
   });
-  console.log(products);
   return (
     <Dialog>
       <DialogTrigger asChild>

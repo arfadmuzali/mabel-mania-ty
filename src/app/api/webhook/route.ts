@@ -3,14 +3,11 @@ import { Prisma } from "@prisma/client";
 
 export async function POST(request: Request) {
   try {
-    console.log("sjadwakd");
     if (request.headers.get("x-callback-token") != process.env.XENDIT_TOKEN) {
       return new Response("Forbidden request", { status: 403 });
     }
 
     const body = await request.json();
-
-    console.log("response Body", body);
 
     const invoice = await prisma.invoice.update({
       where: {
@@ -39,7 +36,6 @@ export async function POST(request: Request) {
         status: body.status,
       },
     });
-    console.log("oredr update", order);
     return Response.json(order);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

@@ -91,7 +91,6 @@ export async function POST(request: Request) {
           { uuid: imageId },
           { authSchema: uploadcareSimpleAuthSchema }
         );
-        console.log(result);
         return result.originalFileUrl;
       })
     );

@@ -14,6 +14,7 @@ interface Order {
   cartId: number;
   invoice: Invoice;
   orderItems: OrderItem[];
+  user: User;
 }
 
 interface Invoice {
@@ -62,6 +63,16 @@ interface Image {
 
 interface Store {
   name: string;
+}
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: null;
+  image: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 async function getOrders() {

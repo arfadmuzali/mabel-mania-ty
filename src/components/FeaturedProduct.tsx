@@ -60,7 +60,7 @@ export default function FeaturedProduct() {
         {isError && <div className="w-full p-5 text-center">error</div>}
 
         {
-          <div className="flex md:justify-between justify-center items-center gap-2 flex-wrap">
+          <div className="flex md:justify-between w-full justify-center items-center gap-2 flex-wrap">
             {products?.map(
               (val: Product & { images: Image[] }, index: number) => {
                 return <ProductCard product={val} key={index} />;
