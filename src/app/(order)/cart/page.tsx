@@ -77,7 +77,22 @@ export default function CartPage() {
     queryFn: getCart,
   });
 
-  console.log(cart);
+  // console.log(cart);
+
+  const createOrder = useMutation({
+    mutationFn: async () => {
+      const response = await axios.post("/api/order", { cartId: cart.id });
+      return response.data;
+    },
+    onSuccess: async (data) => {
+      console.log(data);
+      window.open(data.invoiceUrl, "_blank");
+      await queryClient.invalidateQueries({ queryKey: ["cartCount"] });
+    },
+    onError: async () => {
+      toast("An error occured");
+    },
+  });
 
   const deleteCart = useMutation({
     mutationFn: deleteCartItem,
@@ -207,6 +222,9 @@ export default function CartPage() {
                 cart?.cartItems?.length <= 0
               }
               className="w-full"
+              onClick={async () => {
+                await createOrder.mutateAsync();
+              }}
             >
               <ShoppingBag />
               Checkout

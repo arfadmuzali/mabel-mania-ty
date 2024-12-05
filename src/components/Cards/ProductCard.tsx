@@ -46,7 +46,7 @@ export default function ProductCard({
     },
   });
   return (
-    <div className="lg:w-[17rem] flex-1 md:w-56 w-full rounded-lg space-y-1 border shadow-md">
+    <div className="lg:w-[17rem] grow max-w-[50%] md:w-56 w-full rounded-lg space-y-1 border shadow-md">
       <Link href={`/product/${product.slug}/${product.id}`}>
         <div className="w-full relative rounded-t-lg h-64 md:h-52 lg:h-64">
           <Image

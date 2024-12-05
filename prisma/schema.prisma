@@ -75,6 +75,7 @@ model User {
   Authenticator Authenticator[]
   store         Store?
   cart          Cart?
+  orders        Order[]
 }
 
 model Category {
@@ -108,6 +109,7 @@ model Product {
   category     Category   @relation(references: [slug], fields: [categorySlug], onDelete: Cascade)
   storeId      String
   store        Store      @relation(references: [id], fields: [storeId])
+  OrderItem    OrderItem?
 
   @@index([name])
   @@index([price])
@@ -133,6 +135,7 @@ model Cart {
   cartItems  CartItem[]
   userId     String     @unique
   user       User       @relation(references: [id], fields: [userId])
+  orders     Order[]
 }
 
 model CartItem {
@@ -143,4 +146,53 @@ model CartItem {
   cart      Cart    @relation(references: [id], fields: [cartId], onDelete: Cascade)
   productId String  @unique
   product   Product @relation(references: [id], fields: [productId], onDelete: Cascade)
+}
+
+enum OrderStatus {
+  PENDING
+  CANCELED
+  COMPLETED
+}
+
+model Order {
+  id         String   @id @default(uuid())
+  totalPrice Float
+  status     String   @default("PENDING")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  // cartId  Int
+  // cart    Cart     @relation(fields: [cartId], references: [id])
+  orderItems OrderItem[]
+  invoice    Invoice?
+  Cart       Cart?       @relation(fields: [cartId], references: [id])
+  cartId     Int?
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  quantity  Int
+  price     Int
+  orderId   String
+  order     Order   @relation(references: [id], fields: [orderId], onDelete: Cascade)
+  productId String  @unique
+  product   Product @relation(references: [id], fields: [productId], onDelete: Cascade)
+}
+
+model Invoice {
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  paymentId     String    @id
+  invoiceUrl    String
+  paymentMethod String?
+  status        String
+  amount        Float
+  bankCode      String?
+  description   String?
+  currency      String?
+  paidAt        DateTime?
+  feePaidAmount Float?
 }
