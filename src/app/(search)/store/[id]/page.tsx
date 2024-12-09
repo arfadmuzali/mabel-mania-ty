@@ -2,6 +2,7 @@ import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import StoreProducts from "@/components/storeProducts";
 import prisma from "@/lib/prisma";
 import { AlertCircle, Star } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -24,6 +25,43 @@ async function getStore(id: string) {
     console.log(error);
     return null;
   }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const id = (await params).id;
+  const response = await getStore(id);
+
+  return response
+    ? {
+        title: `${response?.name} - Mabel Mania`,
+        description: `${response?.description}`,
+        openGraph: {
+          title: `${response?.name} - Mabel Mania`,
+          description: `${response?.description}`,
+          url: `${process.env.NEXT_PUBLIC_URL_SITE}/store/${id}`,
+          siteName: "Mabel Mania",
+          // images: [
+          //   {
+          //     url: response?.images[0]?.url,
+          //     width: 1200,
+          //     height: 630,
+          //     alt: "Mabel Mania",
+          //   },
+          // ],
+          type: "website",
+        },
+        twitter: {
+          card: "summary_large_image",
+          title: "Mabel Mania",
+          description: `${response?.description}`,
+          // images: response?.images[0]?.url,
+        },
+      }
+    : { title: "Store not found - Mabel Mania" };
 }
 
 export default async function Store({

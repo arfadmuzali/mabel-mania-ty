@@ -54,7 +54,7 @@ export default function Nav({ isSticky = false }: { isSticky?: boolean }) {
         <div className="lg:flex hidden  items-center gap-3 ">
           <Link
             href={"/"}
-            className="flex  gap-2 rounded-full justify-center items-center "
+            className="flex gap-2 rounded-full justify-center items-center "
           >
             <div className="relative w-10 h-10">
               <Image

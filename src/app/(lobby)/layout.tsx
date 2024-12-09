@@ -1,3 +1,4 @@
+import Footer from "@/components/layouts/Footer";
 import Nav from "@/components/layouts/Nav";
 
 export default function LobbyLayout({
@@ -9,7 +10,7 @@ export default function LobbyLayout({
     <div>
       <Nav />
       {children}
-      <div className="h-screen"></div>
+      <Footer />
     </div>
   );
 }

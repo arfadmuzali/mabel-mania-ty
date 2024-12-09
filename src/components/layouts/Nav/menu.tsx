@@ -83,7 +83,7 @@ export default function Menu() {
               <ListItem href="/products" title="Products">
                 All the product we have to over
               </ListItem>
-              <ListItem href="/stores" title="Store">
+              <ListItem href="/stores" title="Stores">
                 See store all over the world
               </ListItem>
               <ListItem href="/dashboard" title="Build Your Store">

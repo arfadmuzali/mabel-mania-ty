@@ -47,7 +47,7 @@ export async function generateMetadata({
         openGraph: {
           title: `${response?.name} - Mabel Mania`,
           description: `${response?.description}`,
-          url: `${process.env.NEXT_PUBLIC_URL_SITE}/product/${id}`,
+          url: `${process.env.NEXT_PUBLIC_URL_SITE}/product/${response.slug}/${id}`,
           siteName: "Mabel Mania",
           images: [
             {

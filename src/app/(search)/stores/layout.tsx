@@ -1,4 +1,42 @@
 import { ReactNode, Suspense } from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Search Stores - Mabel Mania",
+  description:
+    "Find stores near you that offer modern, minimalist, and high-quality furniture with Mabel Mania.",
+  keywords:
+    "search stores, find furniture stores, Mabel Mania stores, store locator, furniture near me, modern furniture stores",
+  authors: [{ name: "Arfad Muzali" }],
+  viewport: "width=device-width, initial-scale=1",
+  openGraph: {
+    title: "Search Stores - Mabel Mania",
+    description:
+      "Locate Mabel Mania stores easily and explore collections near you for stylish furniture.",
+    // url: "https://mabelmania.com/search-stores",
+    siteName: "Mabel Mania",
+    // Uncomment and add image details when ready
+    // images: [
+    //   {
+    //     url: "https://mabelmania.com/search-stores-og-image.jpg",
+    //     width: 1200,
+    //     height: 630,
+    //     alt: "Find Mabel Mania Stores Near You",
+    //   },
+    // ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Search Stores - Mabel Mania",
+    description:
+      "Discover Mabel Mania stores near you to find the perfect furniture for your home.",
+  },
+  // icons: {
+  //   icon: "/store-icon.png",
+  // },
+};
 
 export default function ProductsLayout({
   children,
