@@ -3,9 +3,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
+
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "@/components/ui/sonner";
-// import { X } from "lucide-react";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,13 @@ const Provider = ({
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={session}>{children}</SessionProvider>
+      <ProgressBar
+        height="4px"
+        color="#ca8a04"
+        options={{ showSpinner: false }}
+        shallowRouting
+      />
+
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <Toaster
         richColors={true}
