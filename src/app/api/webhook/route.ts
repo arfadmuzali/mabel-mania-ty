@@ -36,6 +36,10 @@ export async function POST(request: Request) {
         status: body.status,
       },
     });
+
+    if (!invoice) {
+      return new Response("Failed Update invoice", { status: 400 });
+    }
     return Response.json(order);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

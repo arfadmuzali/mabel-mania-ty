@@ -77,8 +77,6 @@ export default function CartPage() {
     queryFn: getCart,
   });
 
-  // console.log(cart);
-
   const createOrder = useMutation({
     mutationFn: async () => {
       const response = await axios.post("/api/order", { cartId: cart.id });
@@ -168,13 +166,17 @@ export default function CartPage() {
                 </div>
                 <TooltipWraper tooltip="Delete from cart">
                   <button
-                    disabled={isLoading || deleteCart.isPending}
+                    disabled={
+                      isLoading || deleteCart.isPending || createOrder.isPending
+                    }
                     onClick={async () => {
                       await deleteCart.mutateAsync(cart.id);
                     }}
                     className="absolute top-0 right-0 text-sm rounded-full md:p-2 p-1 bg-neutral-100 shadow-md"
                   >
-                    {isLoading || deleteCart.isPending ? (
+                    {isLoading ||
+                    deleteCart.isPending ||
+                    createOrder.isPending ? (
                       <LoadingSpinner className="text-sm" />
                     ) : (
                       <X />
@@ -218,7 +220,8 @@ export default function CartPage() {
               disabled={
                 isLoading ||
                 deleteCart.isPending ||
-                cart?.cartItems?.length <= 0
+                cart?.cartItems?.length <= 0 ||
+                createOrder.isPending
               }
               className="w-full"
               onClick={async () => {

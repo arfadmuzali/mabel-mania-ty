@@ -91,8 +91,6 @@ export default function DashboardOrdersPage() {
     queryFn: getStoreOrders,
   });
 
-  console.log(orders);
-
   return (
     <div className="space-y-10">
       <div>

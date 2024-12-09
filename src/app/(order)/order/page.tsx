@@ -89,7 +89,6 @@ export default function OrderPage() {
     queryKey: ["orders"],
     queryFn: getOrders,
   });
-
   return (
     <div className="min-h-screen lg:px-28 md:px-12 px-4 py-5 space-y-10">
       <div>

@@ -75,6 +75,14 @@ export async function POST(request: Request) {
       });
     }
 
+    const cartItems = cart.cartItems.map((cartItem) => {
+      return {
+        price: cartItem.price,
+        productId: cartItem.productId,
+        quantity: cartItem.quantity,
+      };
+    });
+
     const order = await prisma.order.create({
       data: {
         userId: session.user?.id,
@@ -82,13 +90,12 @@ export async function POST(request: Request) {
         totalPrice: cart.totalPrice || 0,
         orderItems: {
           createMany: {
-            data: cart.cartItems.map((cartItem) => ({
-              price: cartItem.price,
-              productId: cartItem.productId,
-              quantity: cartItem.quantity,
-            })),
+            data: cartItems,
           },
         },
+      },
+      include: {
+        orderItems: true,
       },
     });
 
@@ -102,10 +109,6 @@ export async function POST(request: Request) {
         },
       },
     });
-
-    // console.log("id", order);
-
-    // console.log("apikey", process.env.XENDIT_API_KEY);
 
     const responseInvoice = await axios.post(
       "https://api.xendit.co/v2/invoices",

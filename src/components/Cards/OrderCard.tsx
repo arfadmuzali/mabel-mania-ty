@@ -126,7 +126,10 @@ export default function OrderCard({
       <div className="flex w-full border-b pb-2 gap-2">
         <div className="relative md:h-48 h-24 w-1/5 rounded-md">
           <Image
-            src={order.orderItems[0]?.product?.images?.[0]?.url}
+            src={
+              order.orderItems[0]?.product?.images?.[0]?.url ??
+              "/images/placeholder.svg"
+            }
             alt="orderItems"
             fill
             className="rounded-md"

@@ -12,7 +12,7 @@ export default function Hero() {
       className="inset-0 h-screen grid place-items-center"
     >
       <div className="p-8 lg:space-y-4 space-y-3 bg-white/30 backdrop-blur lg:m-32 m-4 md:m-16 ">
-        <p className="text-2xl lg:text-5xl md:text-3xl  font-bold text-center">
+        <p className="text-2xl lg:text-5xl md:text-3xl text-neutral-800 font-extrabold text-center">
           An e-commerce furniture shop build by{" "}
           <span className="text-yellow-700">Arfad Muzali</span>
         </p>

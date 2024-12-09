@@ -11,10 +11,12 @@ import {
 } from "./pagination";
 
 export default function Paginator({
+  searchParams = "",
   totalPages = 1,
   currentPage = 1,
   onChangePage = async () => {},
 }: {
+  searchParams?: string;
   totalPages: number;
   currentPage: number;
   onChangePage?: () => Promise<void>;
@@ -30,7 +32,9 @@ export default function Paginator({
           if (currentPage > 1) {
             paginationItems.push(
               <PaginationItem onClick={onChangePage} key="previous">
-                <PaginationPrevious href={`?page=${currentPage - 1}`} />
+                <PaginationPrevious
+                  href={`?${searchParams}page=${currentPage - 1}`}
+                />
               </PaginationItem>
             );
           }
@@ -42,7 +46,7 @@ export default function Paginator({
                 <PaginationItem onClick={onChangePage} key={i}>
                   <PaginationLink
                     isActive={i === currentPage}
-                    href={`?page=${i}`}
+                    href={`?${searchParams}page=${i}`}
                   >
                     {i}
                   </PaginationLink>
@@ -60,7 +64,10 @@ export default function Paginator({
             } else {
               paginationItems.push(
                 <PaginationItem onClick={onChangePage} key={1}>
-                  <PaginationLink isActive={currentPage === 1} href={`?page=1`}>
+                  <PaginationLink
+                    isActive={currentPage === 1}
+                    href={`?${searchParams}page=1`}
+                  >
                     1
                   </PaginationLink>
                 </PaginationItem>
@@ -75,7 +82,7 @@ export default function Paginator({
                 <PaginationItem onClick={onChangePage} key={i}>
                   <PaginationLink
                     isActive={i === currentPage}
-                    href={`?page=${i}`}
+                    href={`?${searchParams}page=${i}`}
                   >
                     {i}
                   </PaginationLink>
@@ -95,7 +102,7 @@ export default function Paginator({
                 <PaginationItem onClick={onChangePage} key={totalPages}>
                   <PaginationLink
                     isActive={currentPage === totalPages}
-                    href={`?page=${totalPages}`}
+                    href={`?${searchParams}page=${totalPages}`}
                   >
                     {totalPages}
                   </PaginationLink>
@@ -108,7 +115,9 @@ export default function Paginator({
           if (currentPage < totalPages) {
             paginationItems.push(
               <PaginationItem onClick={onChangePage} key="next">
-                <PaginationNext href={`?page=${currentPage + 1}`} />
+                <PaginationNext
+                  href={`?${searchParams}page=${currentPage + 1}`}
+                />
               </PaginationItem>
             );
           }

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+.no-arrows::-webkit-inner-spin-button,
+.no-arrows::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-arrows {
+  -moz-appearance: textfield; /* Untuk Firefox */
+}
+
 @layer base {
   :root {
     --radius: 0.5rem;

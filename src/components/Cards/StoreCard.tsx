@@ -2,20 +2,26 @@ import { Store } from "@prisma/client";
 import Link from "next/link";
 import { TooltipWraper } from "../ui/tooltip";
 import { Box } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function StoreCard({
   store,
+  isLarge = false,
 }: {
   store: Store & {
     _count: {
       product: number;
     };
   };
+  isLarge?: boolean;
 }) {
   return (
     <Link
       href={"/store/" + store.id}
-      className="lg:w-[17rem] grow md:w-56 w-full rounded-lg space-y-1 border border-neutral-300 hover:border-neutral-200 hover:shadow-none transition duration-200 shadow-md flex flex-col gap-6 p-4"
+      className={cn(
+        isLarge ? "lg:w-[18rem]" : "lg:w-[17rem]",
+        "grow md:w-56 w-full rounded-lg space-y-1 border border-neutral-300 hover:border-neutral-200 hover:shadow-none transition duration-200 shadow-md flex flex-col gap-6 p-4"
+      )}
     >
       <div className="flex flex-col gap-2">
         <TooltipWraper tooltip={store.name}>

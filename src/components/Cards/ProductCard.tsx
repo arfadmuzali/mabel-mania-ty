@@ -4,49 +4,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { TooltipWraper } from "../ui/tooltip";
 import { formatToDollar } from "@/lib/formatToDollar";
-import { Button } from "../ui/button";
 import { Eye } from "lucide-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { toast } from "sonner";
-import { LoadingSpinner } from "../ui/loadingSpinner";
-import { useSession } from "next-auth/react";
+import { AddCartButton } from "../CartButton";
 
 export default function ProductCard({
   product,
+  isLarge = false,
 }: {
   product: Product & { images: ImageType[] };
+  isLarge?: boolean;
 }) {
-  const { data: session } = useSession();
-
-  const queryClient = useQueryClient();
-
-  const cartMutation = useMutation({
-    mutationFn: async () => {
-      if (!session) {
-        throw new Error("Unauthorized, please sign in");
-      }
-
-      try {
-        return await axios.put("/api/cart", { productId: product.id });
-      } catch (error) {
-        console.log(error);
-        throw new Error("Failed to add product to cart.");
-      }
-    },
-    onSuccess: () => {
-      // Invalidasi cache dan tampilkan toast sukses
-      queryClient.invalidateQueries({ queryKey: ["cartCount"] });
-      toast("Product added to cart successfully!");
-    },
-    onError: (error) => {
-      // Tampilkan error message jika tersedia
-      console.error(error);
-      toast(error?.message || "An unexpected error occurred.");
-    },
-  });
   return (
-    <div className="lg:w-[17rem] grow md:max-w-[50%] md:w-56 w-full rounded-lg space-y-1 border shadow-md">
+    <div
+      className={`${
+        isLarge ? "lg:w-[18rem]" : "lg:w-[17rem]"
+      } md:w-56 grow md:max-w-[50%] w-full rounded-lg space-y-1 border shadow-md`}
+    >
       <Link href={`/product/${product.slug}/${product.id}`}>
         <div className="w-full relative rounded-t-lg h-64 md:h-52 lg:h-64">
           <Image
@@ -70,18 +43,7 @@ export default function ProductCard({
         </h4>
 
         <div className="flex gap-1 w-full items-center mt-2">
-          <Button
-            className="w-full flex gap-1 items-center justify-center"
-            disabled={cartMutation.isPending}
-            onClick={async () => {
-              await cartMutation.mutateAsync();
-            }}
-          >
-            <LoadingSpinner
-              className={`${cartMutation.isPending ? "block" : "hidden"}`}
-            />
-            Add to cart
-          </Button>
+          <AddCartButton productId={product.id} />
           <TooltipWraper tooltip="See Product">
             <Link
               href={`/product/${product.slug}/${product.id}`}

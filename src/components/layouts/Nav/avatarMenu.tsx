@@ -19,7 +19,7 @@ export default function AvatarMenu({ session }: { session: Session }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar>
+        <Avatar className="cursor-pointer">
           <AvatarFallback>
             {session?.user?.name?.charAt(0) ?? "AV"}
           </AvatarFallback>

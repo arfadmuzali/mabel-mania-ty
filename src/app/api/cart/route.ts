@@ -47,6 +47,8 @@ export async function PUT(request: Request) {
 
     const body = await request.json();
 
+    const quantity = (await body.quantity) ?? 1;
+
     const cart = await prisma.cart.findUnique({
       where: {
         userId: session.user?.id,
@@ -64,10 +66,23 @@ export async function PUT(request: Request) {
       where: {
         id: body.productId,
       },
+      include: {
+        store: {
+          select: {
+            userId: true,
+          },
+        },
+      },
     });
 
     if (!product) {
       return new Response("Cannot find product", { status: 404 });
+    }
+
+    if (product.store.userId == session.user?.id) {
+      return new Response("Cannot add your own product to the cart", {
+        status: 403,
+      });
     }
 
     let cartItem;
@@ -80,22 +95,22 @@ export async function PUT(request: Request) {
     ) {
       cartItem = await prisma.cartItem.update({
         where: {
-          productId: product?.id ?? (body.productId as string),
+          productId: product.id,
         },
         data: {
           quantity: {
             increment: 1,
           },
           price: {
-            increment: product?.price ?? 0,
+            increment: product.price,
           },
         },
       });
     } else {
       cartItem = await prisma.cartItem.create({
         data: {
-          price: product.price ?? 0,
-          quantity: 1,
+          price: product.price * quantity,
+          quantity: quantity,
           cartId: cart.id,
           productId: body.productId,
         },

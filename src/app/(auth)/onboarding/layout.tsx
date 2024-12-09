@@ -27,7 +27,7 @@ export default async function OnboardingLayout({
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    redirect("/dashboard");
+    redirect("/");
   }
   return <div>{children}</div>;
 }

@@ -40,12 +40,12 @@ export default function FeaturedStore() {
             </h6>
           </div>
           {/* right */}
-          <TooltipWraper tooltip="View all product">
+          <TooltipWraper tooltip="View all store">
             <Link
-              href={"/products"}
+              href={"/stores"}
               className="px-2 py-1 border font-semibold flex gap-1 border-yellow-600 hover:text-white hover:bg-yellow-600 text-yellow-600 rounded transition-colors duration-300 text-sm md:text-base"
             >
-              <span className="hidden md:block">View all product</span>{" "}
+              <span className="hidden md:block">View all store</span>{" "}
               <ArrowRight />
             </Link>
           </TooltipWraper>
@@ -54,7 +54,7 @@ export default function FeaturedStore() {
         {isLoading && (
           <div className="flex md:justify-between justify-center items-center gap-2 flex-wrap">
             {Array.from({ length: 4 }).map((_, index) => {
-              return <StoreCardSkeleton key={index} />;
+              return <StoreCardSkeleton isLarge key={index} />;
             })}
           </div>
         )}
@@ -66,10 +66,9 @@ export default function FeaturedStore() {
                 _count: {
                   product: number;
                 };
-              },
-              index: number
+              }
             ) => {
-              return <StoreCard key={index} store={val} />;
+              return <StoreCard isLarge key={val.id} store={val} />;
             }
           )}
         </div>
