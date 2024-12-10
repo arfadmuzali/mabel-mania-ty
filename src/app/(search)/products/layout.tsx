@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   keywords:
     "search furniture, find products, product search, Mabel Mania furniture, search tool, modern furniture, minimalist furniture",
   authors: [{ name: "Arfad Muzali" }],
-  viewport: "width=device-width, initial-scale=1",
   openGraph: {
     title: "Search Products - Mabel Mania",
     description:

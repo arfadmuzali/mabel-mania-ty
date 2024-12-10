@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   keywords:
     "cart, checkout, order furniture, ecommerce shopping, Mabel Mania orders, furniture checkout",
   authors: [{ name: "Arfad Muzali" }],
-  viewport: "width=device-width, initial-scale=1",
   openGraph: {
     title: "Order - Mabel Mania",
     description:

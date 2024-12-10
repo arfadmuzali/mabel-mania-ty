@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   keywords:
     "onboarding, store setup, create store, Mabel Mania store creation, ecommerce onboarding, manage store",
   authors: [{ name: "Arfad Muzali" }],
-  viewport: "width=device-width, initial-scale=1",
   openGraph: {
     title: "Onboarding - Mabel Mania",
     description:

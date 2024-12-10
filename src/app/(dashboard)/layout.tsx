@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   keywords:
     "dashboard, admin, ecommerce management, furniture dashboard, Mabel Mania admin",
   authors: [{ name: "Arfad Muzali" }],
-  viewport: "width=device-width, initial-scale=1",
   openGraph: {
     title: "Dashboard - Mabel Mania",
     description:

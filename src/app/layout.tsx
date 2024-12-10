@@ -16,7 +16,6 @@ export const metadata: Metadata = {
   keywords:
     "furniture, home decor, modern furniture, minimalist design, tables, chairs, sofas, cabinets, ecommerce",
   authors: [{ name: "Arfad Muzali" }],
-  viewport: "width=device-width, initial-scale=1",
   openGraph: {
     title: "Mabel Mania - Your Furniture Dream Store",
     description:
