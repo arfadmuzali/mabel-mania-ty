@@ -74,10 +74,12 @@ export default function Nav({ isSticky = false }: { isSticky?: boolean }) {
         </div>
         <div className="lg:hidden flex items-center gap-3 ">
           <Sheet>
-            <SheetTrigger asChild>
-              <button>
-                <MenuIcon size={24} />
-              </button>
+            <SheetTrigger
+              aria-label="menu-sheet"
+              className="cursor-pointer"
+              asChild
+            >
+              <MenuIcon size={24} />
             </SheetTrigger>
             <SheetContent side={"left"}>
               <SheetHeader>

@@ -13,7 +13,7 @@ export const CATEGORIES = [
 ];
 
 async function main() {
-  const userId = "cm456erog0001pyvkjjrjodac"; // login first to get the id
+  const userId = "cm4i5oeh80000lcjo5qfpqga2"; // login first to get the id
 
   // Create a Store
   const store = await prisma.store.create({
@@ -40,7 +40,7 @@ async function main() {
 
   // Create 4 Products with 1 Image each, and assign each product to a random category
   const products = await Promise.all(
-    Array.from({ length: 4 }).map(async () => {
+    Array.from({ length: 5 }).map(async () => {
       const randomCategory =
         categories[Math.floor(Math.random() * categories.length)];
 

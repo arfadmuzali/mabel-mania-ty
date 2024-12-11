@@ -53,17 +53,17 @@ const CategoryCard = async ({
   return (
     <Link
       href={`/products?category=${category.slug}`}
-      className="group flex justify-center items-center flex-col md:gap-2 gap-1 hover:bg-yellow-500 hover:shadow-none transition-all duration-300 bg-white md:py-12 py-8 border rounded-md shadow-md lg:w-[16.5rem] md:w-80 w-[9.3rem]"
+      className="group flex justify-center items-center flex-col md:gap-2 gap-1  hover:shadow-none transition-all duration-200 bg-white md:py-12 py-8 border rounded-lg shadow-md lg:w-[16.5rem] md:w-80 w-[9.3rem]"
     >
       <category.icon
         // size={42}
         strokeWidth={2}
         className="md:w-12 md:h-12 w-8 h-8 text-yellow-950"
       />
-      <span className="text-yellow-600 group-hover:text-white md:text-2xl text-lg font-bold">
+      <span className="text-yellow-900  md:text-2xl text-lg font-bold">
         {category.name}
       </span>
-      <span className="text-yellow-600 group-hover:text-white text-sm ">
+      <span className="text-yellow-900  text-sm font-semibold ">
         {productCount} products
       </span>
     </Link>

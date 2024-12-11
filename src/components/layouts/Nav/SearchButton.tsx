@@ -67,7 +67,11 @@ export default function SearchButton() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"white"} className="rounded-2xl font-semibold">
+        <Button
+          aria-label="search-button"
+          variant={"white"}
+          className="rounded-2xl font-semibold"
+        >
           <SearchIcon /> <span className="hidden md:block">Search Product</span>
         </Button>
       </DialogTrigger>
